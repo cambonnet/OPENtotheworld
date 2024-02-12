@@ -35,6 +35,13 @@ ui <- fluidPage(
         border-radius: 40px;
         box-shadow: 0px 0px 20px #000000;
       }
+        .sidebar2 {
+        font-size: 18px;
+        background-color: #2CBDAF;
+        padding: 10px;
+        border-radius: 40px;
+        box-shadow: 0px 0px 20px #000000;
+      }
       .main {
         background-color: #FFA0AC;
         padding: 5px;
@@ -48,6 +55,7 @@ ui <- fluidPage(
       ")
     )
   ),
+  
   sidebarLayout(
     sidebarPanel(
       class = "sidebar",
@@ -62,7 +70,22 @@ ui <- fluidPage(
                   choices = c("Janvier", "Février","Mars", "Avril", "Mai",
                               "Juin", "Juillet", "Août", "Septembre",
                               "Octobre", "Novembre", "Décembre")),
-      actionButton("validate", "Où pourriez vous partir")
+      sliderInput("duree",
+                  "Durée de vos vacances (en jour(s)):",
+                  min = 1,
+                  max = 60,
+                  value = 10),
+      sliderInput("budget",
+                  "Budget par personne pour réussir vos vacances (en €)):",
+                  min = 1,
+                  max = 5000,
+                  value = 500),
+      radioButtons(inputId = "typpays", label = "Type de votre destination de rêves :", inline = TRUE,
+                   choices = c("Pays chaud", "Pays froid", "Pays tempéré", "Peu m'importe")),
+      radioButtons(inputId = "typvac", label = "En vacances, quelle est le type d'activité que vous souhaitez réalisé ?", inline = TRUE,
+                   choices = c("Festif", "Sportif", "Culturel", "Detendu", "Peu m'importe")),
+      
+      actionButton("validate", "Où pourriez vous partir ...")
     ),
     mainPanel(
       class = "main",
