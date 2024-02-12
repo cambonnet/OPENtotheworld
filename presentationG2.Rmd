@@ -32,7 +32,7 @@ Ensuite différentes informations sont demandées afin d'affiner les conseils do
     -   adulte 
     -   sénior
 -   Durée du séjour
--   Budget
+-   Budget : fort, moyen, faible
 -   Période de l'année
 -   Type de destination
     -   pays chaud
