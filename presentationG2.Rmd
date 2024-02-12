@@ -32,7 +32,7 @@ Ensuite différentes informations sont demandées afin d'affiner les conseils do
     -   adulte 
     -   sénior
 -   Durée du séjour
--   Budjet
+-   Budget
 -   Période de l'année
 -   Type de destination
     -   pays chaud
@@ -53,15 +53,15 @@ Ensuite différentes informations sont demandées afin d'affiner les conseils do
 
 ## Les conseils donnés
 
-A partir des donées récoltées, l'application proposera un pays à visiter et suggérera des activités.
+A partir des données récoltées, l'application proposera un pays à visiter et suggérera des activités.
 
-Par exemple, pour un couple d'une vingtaine d'année qui souhaite faire un voyage culturel d'une semaine au mois d'avril dans un pays chaud, avec un budjet moyen, l'application pourrait lui proposer une visite guidée de Lisbonne au Portugal. 
+Par exemple, pour un couple d'une vingtaine d'année qui souhaite faire un voyage culturel d'une semaine au mois d'avril dans un pays chaud avec un budget moyen, l'application pourrait lui proposer une visite guidée de Lisbonne au Portugal. 
 
 ## Pistes d'améliorations
 
-Il existe de multiples pistes d'amélioration pour notre application. Tout d'abord, il serrait bien d'élargir considérablement la liste des destinations que nous proposons.En effet, nous nous sommes limité à une trentaine de pays.
+Il existe de multiples pistes d'amélioration pour notre application. Tout d'abord, il serait bien d'élargir considérablement la liste des destinations que nous proposons.En effet, nous nous sommes limité à une quarantaine de pays.
 
-Nous pourrions envisager d'affiner nos conseils en ciblant nos propositions sur des villes plutot que sur des pays et en indiquant différents services comme des photos, des hotels, des locations de voitures ou des liens pour reserver des activités...
+Nous pourrions envisager d'affiner nos conseils en ciblant nos propositions sur des villes plutot que sur des pays et en indiquant différents services comme des photos, des hotels, des locations de voitures ou des liens pour réserver des activités ou des hôtels par exemple.
 
 Il serait également intéréssant de faire apparaitre une carte du monde qui pointerait la destination choisie.
 
