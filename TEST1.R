@@ -10,7 +10,7 @@ ui <- fluidPage(
       HTML("
       body {
         font-family: 'Arial', sans-serif;
-        background-color: #B4DC7F;
+        background-color: #2986cc;
         color: #ffffff;
       }
       .title {
@@ -62,10 +62,10 @@ ui <- fluidPage(
       textInput(inputId = "nom", label = "Votre prénom et nom", placeholder = "Prénom Nom"),
       numericInput("age", "Votre age:", value = 0, max = 99),
       titlePanel("Avec qui souhaitez vous partir ?"),
-      numericInput("senior", "Nombre de sénior(s) (+ 62 ans):", value = 0),
+      numericInput(inputId = "senior", "Nombre de sénior(s) (+ 62 ans):", value = 0),
       numericInput("adulte", "Nombre d'adulte(s) (+ 16 ans):", value = 0),
       numericInput("enfant", "Nombre d'enfant(s) (3-16 ans):", value = 0),
-      numericInput("banbin", "Nombre de bambin(s) (-3 ans):", value = 0),
+      numericInput("bambin", "Nombre de bambin(s) (-3 ans):", value = 0),
       
       selectInput("mois", "A quel mois souhaitez vous partir ?:",
                   choices = c("Janvier", "Février","Mars", "Avril", "Mai",
@@ -84,9 +84,9 @@ ui <- fluidPage(
       radioButtons(inputId = "typpays", label = "Type de votre destination de rêves :", inline = TRUE,
                    choices = c("Pays chaud", "Pays froid", "Pays tempéré", "Peu m'importe")),
       radioButtons(inputId = "typvac", label = "En vacances, quel est le type d'activité que vous souhaitez réalisé ?", inline = TRUE,
-                   choices = c("Festif", "Sportif", "Culturel", "Detendu", "Peu m'importe")),
+                   choices = c("festif", "sportif", "culturel", "détendu")),
       
-      actionButton("validate", "Où pourriez vous partir ...")
+      actionButton("validate", "Lancez les recherches ...")
     ),
     mainPanel(tabsetPanel(tabPanel(title = "",
             tags$p(class = "intro", "Vous êtes en manque d'inspiration pour vos prochaine vacances ? 
@@ -114,7 +114,10 @@ server <- function(input, output) {
   
   output$message2 <- renderText({
     req(validate_click())
-    paste("Récapitulons ! Vous êtes", input$nom, "et vous avez", input$age, "ans.")
+    paste("Récapitulons ! Vous êtes", input$nom, "et vous avez", input$age, "ans.
+          Vos vacances se dérouleront au mois de ", input$mois, "pour une durée de ", input$duree,
+          "jour(s). Avec vous, ", input$senior,  "sénior(s), ", input$adulte , "adulte(s), ", input$enfant,
+          "enfant(s) et ", input$bambin, "bambin(s) profiteront d'agréables moments dans un cadre", input$typvac)
   })
 }
 
