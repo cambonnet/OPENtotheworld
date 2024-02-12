@@ -65,7 +65,7 @@ Nous pourrions envisager d'affiner nos conseils en ciblant nos propositions sur 
 
 Il serait également intéréssant de faire apparaitre une carte du monde qui pointerait la destination choisie.
 
-Fin
+
 
 =======
 ---
