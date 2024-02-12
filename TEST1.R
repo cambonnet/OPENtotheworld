@@ -59,14 +59,15 @@ ui <- fluidPage(
   sidebarLayout(
     sidebarPanel(
       class = "sidebar",
+      textInput(inputId = "nom", label = "Votre prénom et nom", placeholder = "Prénom Nom"),
+      numericInput("age", "Votre age:", value = 0, max = 99),
       titlePanel("Avec qui souhaitez vous partir ?"),
-      numericInput("age", "Votre age:", value = 0),
       numericInput("senior", "Nombre de sénior(s) (+ 62 ans):", value = 0),
       numericInput("adulte", "Nombre d'adulte(s) (+ 16 ans):", value = 0),
       numericInput("enfant", "Nombre d'enfant(s) (3-16 ans):", value = 0),
       numericInput("banbin", "Nombre de bambin(s) (-3 ans):", value = 0),
       
-            selectInput("mois", "A quel mois souhaitez vous partir ?:",
+      selectInput("mois", "A quel mois souhaitez vous partir ?:",
                   choices = c("Janvier", "Février","Mars", "Avril", "Mai",
                               "Juin", "Juillet", "Août", "Septembre",
                               "Octobre", "Novembre", "Décembre")),
@@ -82,34 +83,38 @@ ui <- fluidPage(
                   value = 500),
       radioButtons(inputId = "typpays", label = "Type de votre destination de rêves :", inline = TRUE,
                    choices = c("Pays chaud", "Pays froid", "Pays tempéré", "Peu m'importe")),
-      radioButtons(inputId = "typvac", label = "En vacances, quelle est le type d'activité que vous souhaitez réalisé ?", inline = TRUE,
+      radioButtons(inputId = "typvac", label = "En vacances, quel est le type d'activité que vous souhaitez réalisé ?", inline = TRUE,
                    choices = c("Festif", "Sportif", "Culturel", "Detendu", "Peu m'importe")),
       
       actionButton("validate", "Où pourriez vous partir ...")
     ),
-    mainPanel(
-      class = "main",
-      tags$p(class = "intro", "En manque d'inspiration pour vos prochaine vacances ? 
+    mainPanel(tabsetPanel(tabPanel(title = "",
+            tags$p(class = "intro", "Vous êtes en manque d'inspiration pour vos prochaine vacances ? 
              OPEN to the world est là pour vous aider à passer les meilleures vacances de votre vie !"),
-      textOutput("message")
-    ))
-    ,
-navbarPage("D'autres infos",tabPanel("Ressources"),
-    tabPanel("Infos par pays")))
+      textOutput("message"))),
+      tabPanel(class="intro", title = "", textOutput("message2")))
+    )
+  )
+
 
 server <- function(input, output) {
   
+  
   validate_click <- eventReactive(input$validate, {
-    list(age = input$age, mois = input$mois)
+    list(age = input$age, nom = input$nom)
   })
   
   output$message <- renderText({
     req(validate_click())
     if (validate_click()$age < 16 )  {
-      return("Vous êtes trop jeune pour utiliser notre application.")
+      return("Vous êtes trop jeune pour utiliser notre application seul, il est conseillé de faire appel à un adulte pour continuer.")
     } else {
       return("Vous avez l'âge parfait pour partir à la découverte de nouveaux horizons !")
-    }
+    }    })
+  
+  output$message2 <- renderText({
+    req(validate_click())
+    paste("Récapitulons ! Vous êtes", input$nom, "et vous avez", input$age, "ans.")
   })
 }
 
