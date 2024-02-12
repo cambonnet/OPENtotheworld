@@ -57,11 +57,22 @@ A partir des données récoltées, l'application proposera un pays à visiter et
 
 Par exemple, pour un couple d'une vingtaine d'année qui souhaite faire un voyage culturel d'une semaine au mois d'avril dans un pays chaud avec un budget moyen, l'application pourrait lui proposer une visite guidée de Lisbonne au Portugal. 
 
+## La forme
+
+Notre application se diviserait en 3 onglets : 
+
+-   Un premier onglet ou l'utilisateur remplirait un formulaire
+
+-   Un deuxième onglet qui indique la destination idéale de l'utilisateur en fonction des données qu'il a renseigné et propose quelques activités
+
+-   Un troisième onglet renverra vers une fiche détaillée du pays désigné.
+
+
 ## Pistes d'améliorations
 
 Il existe de multiples pistes d'amélioration pour notre application. Tout d'abord, il serait bien d'élargir considérablement la liste des destinations que nous proposons.En effet, nous nous sommes limité à une quarantaine de pays.
 
-Nous pourrions envisager d'affiner nos conseils en ciblant nos propositions sur des villes plutot que sur des pays et en indiquant différents services comme des photos, des hotels, des locations de voitures ou des liens pour réserver des activités ou des hôtels par exemple.
+Nous pourrions envisager d'affiner nos conseils en ciblant nos propositions sur des villes ou des régions plutot que sur des pays et en indiquant différents services comme des photos, ou des liens pour réserver des activités, des hôtels ou redirigeant vers des sites de location de voitures par exemple.
 
 Il serait également intéréssant de faire apparaitre une carte du monde qui pointerait la destination choisie.
 
