@@ -10,7 +10,7 @@ ui <- fluidPage(
       HTML("
       body {
         font-family: 'Arial', sans-serif;
-        background-color: #B4DC7F;
+        background-color: #22ADCC;
         color: #ffffff;
       }
       .title {
@@ -18,7 +18,7 @@ ui <- fluidPage(
         font-weight: bold;
         text-align: center;
         margin-bottom: 20px;
-        color: #FAFB6;
+        color: #22ADCC;
       }
       .intro {
         font-size: 18px;
@@ -76,19 +76,19 @@ ui <- fluidPage(
                   min = 1,
                   max = 60,
                   value = 10),
-      sliderInput("budget",
+      sliderInput(inputId = "budget",
                   "Budget par personne pour réussir vos vacances (en €)):",
                   min = 1,
                   max = 5000,
                   value = 500),
-      radioButtons(inputId = "typpays", label = "Type de votre destination de rêves :", inline = TRUE,
-                   choices = c("Pays chaud", "Pays froid", "Pays tempéré", "Peu m'importe")),
+      radioButtons(inputId = "typays", label = "Type de votre destination de rêves :", inline = TRUE,
+                   choices = c("pays chaud", "pays froid", "pays tempéré")),
       radioButtons(inputId = "typvac", label = "En vacances, quel est le type d'activité que vous souhaitez réalisé ?", inline = TRUE,
                    choices = c("festif", "sportif", "culturel", "détendu")),
       
       actionButton("validate", "Lancez les recherches ...")
     ),
-    mainPanel(tabsetPanel(tabPanel(title = "",
+    mainPanel(class="main", tabsetPanel(tabPanel("",
             tags$p(class = "intro", "Vous êtes en manque d'inspiration pour vos prochaine vacances ? 
              OPEN to the world est là pour vous aider à passer les meilleures vacances de votre vie !"),
       textOutput("message"))),
@@ -116,8 +116,10 @@ server <- function(input, output) {
     req(validate_click())
     paste("Récapitulons ! Vous êtes", input$nom, "et vous avez", input$age, "ans.
           Vos vacances se dérouleront au mois de ", input$mois, "pour une durée de ", input$duree,
-          "jour(s). Avec vous, ", input$senior,  "sénior(s), ", input$adulte , "adulte(s), ", input$enfant,
-          "enfant(s) et ", input$bambin, "bambin(s) profiteront d'agréables moments dans un cadre", input$typvac)
+          "jour(s). Vous partirez dans un ", input$typays, "et emmènerez avec vous ", input$senior,  
+          "sénior(s), ", input$adulte , "adulte(s), ", input$enfant,
+          "enfant(s) et ", input$bambin, "bambin(s) profiteront d'agréables moments dans un cadre", 
+          input$typvac, " avec un budget de ", input$budget, "€/personne." )
   })
 }
 
