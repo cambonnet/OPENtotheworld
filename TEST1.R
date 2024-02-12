@@ -10,7 +10,11 @@ ui <- fluidPage(
       HTML("
       body {
         font-family: 'Arial', sans-serif;
+<<<<<<< HEAD
         background-color: #22ADCC;
+=======
+        background-color: #2986cc;
+>>>>>>> af06e45fece4d0a2e1d7000503bb4a689d2f2392
         color: #ffffff;
       }
       .title {

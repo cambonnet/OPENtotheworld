@@ -63,6 +63,8 @@ Notre application se diviserait en 3 onglets :
 
 -   Un premier onglet ou l'utilisateur remplirait un formulaire
 
+![Onglet 1](~/OneDrive/Documents/ISARA/OPEN/OPENtotheworld/1.pnj)
+
 -   Un deuxième onglet qui indique la destination idéale de l'utilisateur en fonction des données qu'il a renseigné et propose quelques activités
 
 -   Un troisième onglet renverra vers une fiche détaillée du pays désigné.
