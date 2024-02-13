@@ -2,7 +2,8 @@ library(shiny)
 library(dplyr)
 library(readxl)
 
-payss <- read_excel("pays__.xlsx")
+#payss <- read_excel("pays__.xlsx")
+payss <- read_excel("pays.xlsx")
 head(payss)
 
 ui <- fluidPage(
@@ -181,6 +182,7 @@ server <- function(input, output) {
   return(PPP)
     sample(PPP)
 })
+}
 
 # Exécution de l'application
 shinyApp(ui = ui, server = server)
