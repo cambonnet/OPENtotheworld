@@ -1,7 +1,7 @@
 library(shiny)
 library(dplyr)
 library(readxl)
-
+S
 #payss <- read_excel("pays__.xlsx")
 payss <- read_excel("pays.xlsx")
 head(payss)
