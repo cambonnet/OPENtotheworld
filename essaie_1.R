@@ -1,9 +1,8 @@
 library(shiny)
 library(dplyr)
 library(readxl)
-S
-#payss <- read_excel("pays__.xlsx")
-payss <- read_excel("pays.xlsx")
+
+payss <- read_excel("pays__.xlsx")
 head(payss)
 
 ui <- fluidPage(
@@ -178,9 +177,9 @@ server <- function(input, output) {
     if (input$typvac == "détendu")
       PP<- filter(PP, Détentes == "Oui")
     
-    PPP <- PP[[1]]
-  return(PPP)
-    sample(PPP)
+    PPP <- sample(PP[[1]])
+    paste(PPP)
+    
 })
 }
 
