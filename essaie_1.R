@@ -167,14 +167,11 @@ server <- function(input, output) {
     
     if (input$typvac == "festif")
     PP<- filter(PP, Festives == "Oui")
-    
-    if (input$typvac == "sportif")
+    else if (input$typvac == "sportif")
       PP<- filter(PP, Sportives == "Oui")
-    
-    if (input$typvac == "culturel")
+    else if (input$typvac == "culturel")
       PP<- filter(PP, Culturelles == "Oui")
-    
-    if (input$typvac == "détendu")
+    else 
       PP<- filter(PP, Détentes == "Oui")
     
     PPP <- PP[[1]]
