@@ -1,7 +1,6 @@
 library(shiny)
 library(readxl)
 pays <- read_excel("pays.xlsx")
-View(pays)
 
 ui <- fluidPage(
   navbarPage("Venez explorer le monde",
@@ -37,7 +36,7 @@ ui <- fluidPage(
       }
       .sidebar {
         font-size: 18px;
-        background-color: #FFA0AC;
+        background-color: #93c47d;
         padding: 10px;
         border-radius: 40px;
         box-shadow: 0px 0px 20px #000000;
@@ -50,7 +49,7 @@ ui <- fluidPage(
         box-shadow: 0px 0px 20px #000000;
       }
       .main {
-        background-color: #FFA0AC;
+        background-color: #93c47d;
         padding: 5px;
         border-radius: 10px;
         text-align: center;
@@ -69,10 +68,8 @@ ui <- fluidPage(
       textInput(inputId = "nom", label = "Votre prénom et nom", placeholder = "Prénom Nom"),
       numericInput("age", "Votre age:", value = 0, max = 99),
       titlePanel("Avec qui souhaitez vous partir ?"),
-      numericInput(inputId = "senior", "Nombre de sénior(s) (+ 62 ans):", value = 0),
-      numericInput("adulte", "Nombre d'adulte(s) (+ 16 ans):", value = 0),
-      numericInput("enfant", "Nombre d'enfant(s) (3-16 ans):", value = 0),
-      numericInput("bambin", "Nombre de bambin(s) (-3 ans):", value = 0),
+      numericInput("adulte", "Nombre d'adulte(s) (+ 16 ans):", value = 0, min = 0, max = 99),
+      numericInput("enfant", "Nombre d'enfant(s) (0-16 ans):", value = 0, min = 0, max = 99),
       
       selectInput("mois", "A quel mois souhaitez vous partir ?:",
                   choices = c("Janvier", "Février","Mars", "Avril", "Mai",
@@ -83,14 +80,11 @@ ui <- fluidPage(
                   min = 1,
                   max = 60,
                   value = 10),
-      sliderInput(inputId = "budget",
-                  "Budget par personne pour réussir vos vacances (en €)):",
-                  min = 1,
-                  max = 5000,
-                  value = 500),
+      selectInput("budget", "Budget par jour et par personne en €:",
+                  choices = c("Faible = 0 - 350€", "Moyen = 350 - 700 €", "Fort = + 700€")),
       radioButtons(inputId = "typays", label = "Type de votre destination de rêves :", inline = TRUE,
                    choices = c("pays chaud", "pays froid", "pays tempéré")),
-      radioButtons(inputId = "typvac", label = "En vacances, quel est le type d'activité que vous souhaitez réalisé ?", inline = TRUE,
+      radioButtons(inputId = "typvac", label = "Quel est type d'activité souhaitez-vous réaliser ?", inline = TRUE,
                    choices = c("festif", "sportif", "culturel", "détendu")),
       
       actionButton("validate", "Lancez les recherches ...")
