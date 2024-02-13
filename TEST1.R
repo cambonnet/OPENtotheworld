@@ -71,10 +71,8 @@ ui <- fluidPage(
       numericInput("adulte", "Nombre d'adulte(s) (+ 16 ans):", value = 0, min = 0, max = 99),
       numericInput("enfant", "Nombre d'enfant(s) (0-16 ans):", value = 0, min = 0, max = 99),
       
-      selectInput("mois", "A quel mois souhaitez vous partir ?:",
-                  choices = c("Janvier", "Février","Mars", "Avril", "Mai",
-                              "Juin", "Juillet", "Août", "Septembre",
-                              "Octobre", "Novembre", "Décembre")),
+      selectInput("saison", "Quand souhaitez vous partir ?:",
+                  choices = c("en été", "en hiver", "en automne", "au printemps")),
       sliderInput("duree",
                   "Durée de vos vacances (en jour(s)):",
                   min = 1,
@@ -116,11 +114,10 @@ server <- function(input, output) {
   output$message2 <- renderText({
     req(validate_click())
     paste("Récapitulons ! Vous êtes", input$nom, "et vous avez", input$age, "ans.
-          Vos vacances se dérouleront au mois de ", input$mois, "pour une durée de ", input$duree,
-          "jour(s). Vous partirez dans un ", input$typays, "et emmènerez avec vous ", input$senior,  
-          "sénior(s), ", input$adulte , "adulte(s), ", input$enfant,
-          "enfant(s) et ", input$bambin, "bambin(s) profiteront d'agréables moments dans un cadre", 
-          input$typvac, " avec un budget de ", input$budget, "€/personne." )
+          Vos vacances se dérouleront ", input$saison, "pour une durée de ", input$duree,
+          "jour(s). Vous partirez dans un ", input$typays, "et emmènerez avec vous ", input$adulte , "adulte(s) et ", input$enfant,
+          "enfant(s) qui profiteront d'agréables moments dans un cadre", 
+          input$typvac, " avec un budget ", input$budget, "€/jour/personne." )
   })
 }
 
