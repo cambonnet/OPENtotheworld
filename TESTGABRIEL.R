@@ -16,9 +16,17 @@ output$message4 <- renderText({
   req(validate_click())
   paste(test1[1:5,1],test1[1:5,1])})
 
+############################################
+##séléction du mois si possible pour remplacer saison
+sidebarPanel(selectInput("mois", "A quel mois souhaitez vous partir ?:",
+                         choices = c("Janvier", "Février","Mars", "Avril", "Mai",
+                                     "Juin", "Juillet", "Août", "Septembre",
+                                     "Octobre", "Novembre", "Décembre"))
+             
 #############################################
 ###Test filter :
 
+#install.packages(dplyr)
 library(readxl)
 library(dplyr)
 pay <- read_excel("pays.xlsx")
@@ -51,7 +59,7 @@ pay[,7]
 test1<- filter(pay[,7])
 if (test1 == "Oui"){
   return("test oui c'est culturelle")}
-else {
+ else {
   return("test non c'est pas cultu")}
 
 x <- 1:100
