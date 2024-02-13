@@ -63,15 +63,15 @@ Notre application se diviserait en 3 onglets :
 
 -   Un premier onglet ou l'utilisateur remplirait un formulaire
 
-![Onglet 1](1.png)
+![Onglet 1](onglet1.png)
 
 -   Un deuxième onglet qui indique la destination idéale de l'utilisateur en fonction des données qu'il a renseigné et propose quelques activités
 
-![Onglet 2](2.png)
+![Onglet 2](onglet2.png)
 
 -   Un troisième onglet renverra vers une fiche détaillée du pays désigné.
 
-![Onglet 3](3.png)
+![Onglet 3](onglet3.png)
 
 \newpage
 

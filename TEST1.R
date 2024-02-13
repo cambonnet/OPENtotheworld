@@ -1,13 +1,14 @@
 library(shiny)
+library(readxl)
+pays <- read_excel("pays.xlsx")
 
 ui <- fluidPage(
   navbarPage("Venez explorer le monde",
-             tabPanel("Trouvez votre destination"),
-  ),
-  titlePanel("OPEN to the World"),
-  tags$head(
-    tags$style(
-      HTML("
+             tabPanel("Trouvez votre destination",
+                      titlePanel("OPEN to the World"),
+                      tags$head(
+                        tags$style(
+                          HTML("
       body {
         font-family: 'Arial', sans-serif;
 <<<<<<< HEAD
@@ -34,7 +35,7 @@ ui <- fluidPage(
       }
       .sidebar {
         font-size: 18px;
-        background-color: #FFA0AC;
+        background-color: #93c47d;
         padding: 10px;
         border-radius: 40px;
         box-shadow: 0px 0px 20px #000000;
@@ -47,7 +48,7 @@ ui <- fluidPage(
         box-shadow: 0px 0px 20px #000000;
       }
       .main {
-        background-color: #FFA0AC;
+        background-color: #93c47d;
         padding: 5px;
         border-radius: 10px;
         text-align: center;
@@ -57,48 +58,44 @@ ui <- fluidPage(
         box-shadow: 0px 0px 10px #000000;
       }
       ")
-    )
+                        )
+                      ),
+                      
+                      sidebarLayout(
+                        sidebarPanel(
+                          class = "sidebar",
+                          textInput(inputId = "nom", label = "Votre prénom et nom", placeholder = "Prénom Nom"),
+                          numericInput("age", "Votre age:", value = 0, max = 99),
+                          titlePanel("Avec qui souhaitez vous partir ?"),
+                          numericInput("adulte", "Nombre d'adulte(s) (+ 16 ans):", value = 0, min = 0, max = 99),
+                          numericInput("enfant", "Nombre d'enfant(s) (0-16 ans):", value = 0, min = 0, max = 99),
+                          
+                          selectInput("saison", "Quand souhaitez vous partir ?:",
+                                      choices = c("en été", "en hiver", "en automne", "au printemps")),
+                          sliderInput("duree",
+                                      "Durée de vos vacances (en jour(s)):",
+                                      min = 1,
+                                      max = 60,
+                                      value = 10),
+                          selectInput("budget", "Budget par jour et par personne en €:",
+                                      choices = c("Faible = 0 - 350€", "Moyen = 350 - 700 €", "Fort = + 700€")),
+                          radioButtons(inputId = "typays", label = "Type de votre destination de rêves :", inline = TRUE,
+                                       choices = c("pays chaud", "pays froid", "pays tempéré")),
+                          radioButtons(inputId = "typvac", label = "Quel est type d'activité souhaitez-vous réaliser ?", inline = TRUE,
+                                       choices = c("festif", "sportif", "culturel", "détendu")),
+                          
+                          actionButton("validate", "Lancez les recherches ...")
+                        ),
+                        mainPanel(class="main", tabsetPanel(tabPanel("",
+                                                                     tags$p(class = "intro", "Vous êtes en manque d'inspiration pour vos prochaine vacances ? 
+             OPEN to the world est là pour vous aider à passer les meilleures vacances de votre vie !"),
+                                                                     textOutput("message"))),
+                                  tabPanel(class="intro", title = "", textOutput("message2")))
+                      )),
+             tabPanel("Résultat")
   ),
   
-  sidebarLayout(
-    sidebarPanel(
-      class = "sidebar",
-      textInput(inputId = "nom", label = "Votre prénom et nom", placeholder = "Prénom Nom"),
-      numericInput("age", "Votre age:", value = 0, max = 99),
-      titlePanel("Avec qui souhaitez vous partir ?"),
-      numericInput(inputId = "senior", "Nombre de sénior(s) (+ 62 ans):", value = 0),
-      numericInput("adulte", "Nombre d'adulte(s) (+ 16 ans):", value = 0),
-      numericInput("enfant", "Nombre d'enfant(s) (3-16 ans):", value = 0),
-      numericInput("bambin", "Nombre de bambin(s) (-3 ans):", value = 0),
-      
-      selectInput("mois", "A quel mois souhaitez vous partir ?:",
-                  choices = c("Janvier", "Février","Mars", "Avril", "Mai",
-                              "Juin", "Juillet", "Août", "Septembre",
-                              "Octobre", "Novembre", "Décembre")),
-      sliderInput("duree",
-                  "Durée de vos vacances (en jour(s)):",
-                  min = 1,
-                  max = 60,
-                  value = 10),
-      sliderInput(inputId = "budget",
-                  "Budget par personne pour réussir vos vacances (en €)):",
-                  min = 1,
-                  max = 5000,
-                  value = 500),
-      radioButtons(inputId = "typays", label = "Type de votre destination de rêves :", inline = TRUE,
-                   choices = c("pays chaud", "pays froid", "pays tempéré")),
-      radioButtons(inputId = "typvac", label = "En vacances, quel est le type d'activité que vous souhaitez réalisé ?", inline = TRUE,
-                   choices = c("festif", "sportif", "culturel", "détendu")),
-      
-      actionButton("validate", "Lancez les recherches ...")
-    ),
-    mainPanel(class="main", tabsetPanel(tabPanel("",
-            tags$p(class = "intro", "Vous êtes en manque d'inspiration pour vos prochaine vacances ? 
-             OPEN to the world est là pour vous aider à passer les meilleures vacances de votre vie !"),
-      textOutput("message"))),
-      tabPanel(class="intro", title = "", textOutput("message2")))
-    )
-  )
+)
 
 
 server <- function(input, output) {
@@ -119,11 +116,10 @@ server <- function(input, output) {
   output$message2 <- renderText({
     req(validate_click())
     paste("Récapitulons ! Vous êtes", input$nom, "et vous avez", input$age, "ans.
-          Vos vacances se dérouleront au mois de ", input$mois, "pour une durée de ", input$duree,
-          "jour(s). Vous partirez dans un ", input$typays, "et emmènerez avec vous ", input$senior,  
-          "sénior(s), ", input$adulte , "adulte(s), ", input$enfant,
-          "enfant(s) et ", input$bambin, "bambin(s) profiteront d'agréables moments dans un cadre", 
-          input$typvac, " avec un budget de ", input$budget, "€/personne." )
+          Vos vacances se dérouleront ", input$saison, "pour une durée de ", input$duree,
+          "jour(s). Vous partirez dans un ", input$typays, "et emmènerez avec vous ", input$adulte , "adulte(s) et ", input$enfant,
+          "enfant(s) qui profiteront d'agréables moments dans un cadre", 
+          input$typvac, " avec un budget ", input$budget, "€/jour/personne." )
   })
 }
 
