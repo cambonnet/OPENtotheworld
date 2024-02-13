@@ -1,4 +1,7 @@
 library(shiny)
+library(readxl)
+pays <- read_excel("pays.xlsx")
+View(pays)
 
 ui <- fluidPage(
   navbarPage("Venez explorer le monde",
