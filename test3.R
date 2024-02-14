@@ -183,7 +183,7 @@ server <- function(input, output) {
       enfant = input$enfant,
       saison = input$saison,
       duree = input$duree,
-      budget = input$budget, # Extraire la valeur numérique du budget
+      budget = input$budget,
       typays = input$typays,
       typvac = input$typvac
     )
