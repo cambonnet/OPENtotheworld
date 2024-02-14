@@ -2,6 +2,8 @@ library(shiny)
 library(dplyr)
 library(readxl)
 
+#ça marche bien avec ce document là que je vais mettre sur git, je l'ai légerement modifié genre des accents et des majuscules mais sinon ça marche pas
+
 payss <- read_excel("pays__.xlsx")
 head(payss)
 
@@ -94,22 +96,22 @@ ui <- fluidPage(
       
       actionButton("validate", "Lancez les recherches ...")
     ),
-    mainPanel(class="main", tabsetPanel(tabPanel("",
-                                                 tags$p(class = "intro", "Vous êtes en manque d'inspiration pour vos prochaine vacances ? 
+    mainPanel(class="main", 
+              tabsetPanel(
+                tabPanel("", tags$p(class = "intro", "Vous êtes en manque d'inspiration pour vos prochaine vacances ? 
              OPEN to the world est là pour vous aider à passer les meilleures vacances de votre vie !"),
                                                  textOutput("message"))),
-              tabPanel(class="intro", title = "", textOutput("message2")))
+              tabPanel(class="intro", title = "", textOutput("message2")),
+              tabPanel("resultat",textOutput("message3")))
   )
 )
 
 
 server <- function(input, output) {
-  
-  
+
   validate_click <- eventReactive(input$validate, {
     list(age = input$age, nom = input$nom)
   })
-  
   output$message <- renderText({
     req(validate_click())
     if (validate_click()$age < 16 )  {
@@ -121,61 +123,36 @@ server <- function(input, output) {
   output$message2 <- renderText({
     req(validate_click())
     paste("Récapitulons ! Vous êtes", input$nom, "et vous avez", input$age, "ans.
-          Vos vacances se dérouleront au mois de ", input$mois, "pour une durée de ", input$duree,
-          "jour(s). Vous partirez dans un ", input$typays, "et emmènerez avec vous ", input$senior,  
-          "sénior(s), ", input$adulte , "adulte(s), ", input$enfant,
-          "enfant(s) et ", input$bambin, "bambin(s) profiteront d'agréables moments dans un cadre", 
+          Vos vacances se dérouleront en ", input$saison, "pour une durée de ", input$duree,
+          "jour(s). Vous partirez dans un ", input$typays, "et emmènerez avec vous ", input$adulte , "adulte(s) et ", input$enfant,
+          "enfant(s) profiteront d'agréables moments dans un cadre", 
           input$typvac, " avec un budget de ", input$budget, "€/personne." )
   })
   output$message3 <- renderText({
     req(validate_click())
-#pour l'été
-    if (input$saison == "été")
-    PP<- filter(payss, Saison == "été")
-    else if (input$saison == "printemps")
-      PP<- filter(payss, Saison == "printemps")
-    else if (input$saison == "hiver")
-      PP<- filter(payss, Saison == "hiver")
-    else 
-      PP<- filter(payss, Saison == "automne")
     
-    if (input$enfant <= 1)
-    PP <- filter(PP, Enfant == "Oui")
-    else 
-      PP<- filter(PP, Enfant == "Non")
+    #Les boucles marchent !!!!! (je suis trop contente j'ai enfin compris)
     
-    if (input$duree > 15)
-      PP<- filter(PP, Duree == "Long")
-    else if(input$duree < 7)
-    PP<- filter(PP, Duree == "Court")
-    else  
-      PP<-filter(PP, Duree == "Moyen")
+    if (input$saison == "été"){PP<- filter(payss, Saison == "été")} else if (input$saison == "printemps") {PP<- filter(payss, Saison == "printemps")} else if (input$saison == "hiver") {PP<- filter(payss, Saison == "hiver")} else if (input$saison == "automne") {PP<- filter(payss, Saison == "automne")}
     
-    if (input$budget > 700)
-      PP<- filter(PP, Budget == "Fort")
-    else if(input$budget < 350)
-    PP<- filter(PP, Budget == "Faible")
-    else
-      PP<-filter(PP, Budget == "Moyen")
+    if (input$enfant >= 1) {PP <- filter(PP, Enfant == "Oui")} else {PP<- filter(PP, Enfant == "Non")}
     
-    if (input$typays == "pays chaud")
-      PP<- filter(PP, Climat == "Chaud")
-    else if(input$typays == "pays froid")
-    PP<- filter(PP, Climat == "Froid")
-    else 
-      PP<- filter(PP, Climat == "Tempéré")
+    if (input$duree > 15) {PP<- filter(PP, Duree == "Long")} else if(input$duree < 7) {PP<- filter(PP, Duree == "Court")} else if(input$duree>7 & duree<14){PP<-filter(PP, Duree == "Moyen")}
     
-    if (input$typvac == "festif")
-    PP<- filter(PP, Festives == "Oui")
-    else if (input$typvac == "sportif")
-      PP<- filter(PP, Sportives == "Oui")
-    else if (input$typvac == "culturel")
-      PP<- filter(PP, Culturelles == "Oui")
-    else
-      PP<- filter(PP, Détentes == "Oui")
+    if (input$budget > 700) {PP<- filter(PP, Budget == "Fort")} else if(input$budget < 350) {PP<- filter(PP, Budget == "Faible")} else if (input$budget>350 & input$budget<700) {PP<-filter(PP, Budget == "Moyen")}
     
-    PPP <- sample(PP[[1]])
-    paste(PPP)
+    if (input$typays == "pays chaud"){PP<- filter(PP, Climat == "Chaud")} else if(input$typays == "pays froid") {PP<- filter(PP, Climat == "Froid")} else if (input$typays == "pays tempéré") {PP<- filter(PP, Climat == "Tempéré")}
+    
+    if (input$typvac == "festif") {PP<- filter(PP, Festives == "Oui")} else if (input$typvac == "sportif"){PP<- filter(PP, Sportives == "Oui")} else if (input$typvac == "culturel") {PP<- filter(PP, Culturelles == "Oui")} else if (input$typvac == "détendu") {PP<- filter(PP, Détentes == "Oui")}
+    
+    
+    PPP<- select(PP, Pays)
+    
+    #la ça marche plus j'arrive pas à faire un tirage au sort parmis les données de PPP et je sais comment l'afficher sur Shiny
+    
+    if (is.null(PPP)== TRUE) {paste("Nous n'avons trouvé aucune destination qui corresponde à votre demande")} else{destid<-PPP)} 
+    
+    #aussi il faudrait essayer de mettre le message3 sur l'autre onglet
     
 })
 }
