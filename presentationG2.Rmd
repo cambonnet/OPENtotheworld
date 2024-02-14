@@ -15,40 +15,33 @@ Camille BONNET, Gabriel BURELLIER et Jiwar LAEBOUSSE.
 
 ## Le concept
 
-*OPEN to the world* est une application de voyage. L'utilisateur renseigne sur une première page différentes informations le concernant et l'application lui trouve la destination idéale pour ses prochaines vacances.
+*OPEN to the world* est une application de proposition voyage. L'utilisateur renseigne sur une première page différentes informations le concernant et l'application lui trouve la destination idéale pour ses prochaines vacances.
 
 ## Les critères étudiés
 
-L'application demande dans un premier temps à l'utilisateur de rentrer son Nom et Prénom.
+L'application demande dans un premier temps à l'utilisateur de rentrer son nom, son prénom et son age.
 Ensuite différentes informations sont demandées afin d'affiner les conseils donnés:
 
 
--   Nombre de voyageur
--   Catégories d'ages
+-   Nombre de voyageur(s)
+-   Catégories d'ages des autres voyageurs (2 catégories : Adulte et enfant -16 ans dans la version de base)
     -   enfant en bas age
     -   enfant 
     -   adolescent 
     -   jeune adulte 
     -   adulte 
     -   sénior
--   Durée du séjour
--   Budget : fort, moyen, faible
--   Période de l'année
+-   Durée du séjour (en jours)
+-   Budget (en €/personne/jour) : fort (+700), moyen (350 à 700), faible (-350)
+-   Période de l'année (Saison)
 -   Type de destination
     -   pays chaud
     -   pays froid
     -   pays tempéré
-    -   peu m'importe
--   Types de destinations
-    -   pays chaud
-    -   pays froid
-    -   pays tempéré
-    -   peu m'importe
 -   Types d'activités 
     -   culturelles
     -   sportives
     -   détentes
-    -   familliales
     -   festives
 
 ## Les conseils donnés
@@ -61,7 +54,7 @@ Par exemple, pour un couple d'une vingtaine d'année qui souhaite faire un voyag
 
 Notre application se diviserait en 3 onglets : 
 
--   Un premier onglet ou l'utilisateur remplirait un formulaire
+-   Un premier onglet ou l'utilisateur remplit un formulaire
 
 ![Onglet 1](onglet1.png)
 
@@ -69,7 +62,7 @@ Notre application se diviserait en 3 onglets :
 
 ![Onglet 2](onglet2.png)
 
--   Un troisième onglet renverra vers une fiche détaillée du pays désigné.
+-   Un troisième onglet renverra vers une fiche détaillée d'informations sur le pays désigné.
 
 ![Onglet 3](onglet3.png)
 
@@ -77,7 +70,7 @@ Notre application se diviserait en 3 onglets :
 
 ## Pistes d'améliorations
 
-Il existe de multiples pistes d'amélioration pour notre application. Tout d'abord, il serait bien d'élargir considérablement la liste des destinations que nous proposons.En effet, nous nous sommes limité à une quarantaine de pays.
+Il existe de multiples pistes d'amélioration pour notre application. Tout d'abord, il serait bien d'élargir considérablement la liste des destinations que nous proposons.En effet, nous nous sommes limité à une quarantaine de pays. On pourrait également proposer une partie "destination surprise" où l'utilisateur entre seulement quelques infos le concernant et l'application s'occupe de lui sortir une sestination de voyage. L'ajout de nouvelles catégories, notamment pour les autres voyageurs pourraient être interessant puisqu'on ne voyage pas de la même manière avec un enfant de 2 ans et un autre de 15 ans, de même pour les adultes de 26 et ceux de 80 ans.
 
 Nous pourrions envisager d'affiner nos conseils en ciblant nos propositions sur des villes ou des régions plutot que sur des pays et en indiquant différents services comme des photos, ou des liens pour réserver des activités, des hôtels ou redirigeant vers des sites de location de voitures par exemple.
 
