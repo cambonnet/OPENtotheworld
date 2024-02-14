@@ -6,11 +6,11 @@ library(dplyr)
 # Charger les données sur les pays
 pays <- read_excel("pays.xlsx")
 
-typays <- "pays chaud"
-enfant <- 0
-typvac <- "culturel"
-budget <- 500
-duree <- 5
+typays = "pays chaud"
+enfant = 0
+typvac = "culturel"
+budget = 500
+duree = 5
 
 
 # Fonction pour trouver la destination en fonction des critères
