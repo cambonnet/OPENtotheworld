@@ -1,10 +1,9 @@
 library(shiny)
 library(dplyr)
-library(readxl)
 
 #ça marche bien avec ce document là que je vais mettre sur git, je l'ai légerement modifié genre des accents et des majuscules mais sinon ça marche pas
 
-payss <- read_excel("pays__.xlsx")
+payss <- read.csv("pays__.csv", sep = ";", encoding = "UTF-8")
 head(payss)
 
 ui <- fluidPage(
@@ -71,12 +70,10 @@ ui <- fluidPage(
     sidebarPanel(
       class = "sidebar",
       textInput(inputId = "nom", label = "Votre prénom et nom", placeholder = "Prénom Nom"),
-      numericInput("age", "Votre age:", value = 0, max = 99),
+      numericInput("age", "Votre age:", value = 0, min = 0, max = 99),
       titlePanel("Avec qui souhaitez vous partir ?"),
-      numericInput("adulte", "Nombre d'adulte(s) (+ 16 ans):", value = 0),
-      numericInput("enfant", "Nombre d'enfant(s) (0-16 ans):", value = 0),
-      
-      
+      numericInput("adulte", "Nombre d'adulte(s) (+ 16 ans):", value = 0, min = 0, max = 99),
+      numericInput("enfant", "Nombre d'enfant(s) (0-16 ans):", value = 0, min = 0, max = 99),
       selectInput("saison", "A quelle saison souhaitez vous partir ?:",
                   choices = c("été", "automne","hiver", "printemps")),
       sliderInput("duree",
@@ -150,7 +147,7 @@ server <- function(input, output) {
     
     #la ça marche plus j'arrive pas à faire un tirage au sort parmis les données de PPP et je sais comment l'afficher sur Shiny
     
-    if (is.null(PPP)== TRUE) {paste("Nous n'avons trouvé aucune destination qui corresponde à votre demande")} else{destid<-PPP)} 
+    if (is.null(PPP)== TRUE) {paste("Nous n'avons trouvé aucune destination qui corresponde à votre demande")} else{destid<-PPP} 
     
     #aussi il faudrait essayer de mettre le message3 sur l'autre onglet
     
