@@ -98,8 +98,10 @@ ui <- fluidPage(
                 tabPanel("", tags$p(class = "intro", "Vous êtes en manque d'inspiration pour vos prochaine vacances ? 
              OPEN to the world est là pour vous aider à passer les meilleures vacances de votre vie !"),
                                                  textOutput("message"))),
-              tabPanel(class="intro", title = "", textOutput("message2")),
-              tabPanel("resultat",textOutput("message3")))
+              tabsetPanel(
+                tabPanel("Récapitulatif", textOutput("message2")),
+                tabPanel("Résultats", textOutput("message3"))
+              ))
   )
 )
 
@@ -107,7 +109,15 @@ ui <- fluidPage(
 server <- function(input, output) {
 
   validate_click <- eventReactive(input$validate, {
-    list(age = input$age, nom = input$nom)
+    list(nom = input$nom,
+         age = input$age,
+         adulte = input$adulte,
+         enfant = input$enfant,
+         saison = input$saison,
+         duree = input$duree,
+         budget = input$budget,
+         typays = input$typays,
+         typvac = input$typvac)
   })
   output$message <- renderText({
     req(validate_click())
@@ -120,7 +130,7 @@ server <- function(input, output) {
   output$message2 <- renderText({
     req(validate_click())
     paste("Récapitulons ! Vous êtes", input$nom, "et vous avez", input$age, "ans.
-          Vos vacances se dérouleront en ", input$saison, "pour une durée de ", input$duree,
+          Vos vacances se dérouleront en ", input$saison, "pour une durée de ", input$dureee,
           "jour(s). Vous partirez dans un ", input$typays, "et emmènerez avec vous ", input$adulte , "adulte(s) et ", input$enfant,
           "enfant(s) profiteront d'agréables moments dans un cadre", 
           input$typvac, " avec un budget de ", input$budget, "€/personne." )
