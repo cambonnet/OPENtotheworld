@@ -95,7 +95,7 @@ ui <- fluidPage(
     ),
     mainPanel(class = "main",
               tabsetPanel(
-                tabPanel("",
+                tabPanel("Descriptif",
                          tags$p(class = "intro",
                   "Vous êtes en manque d'inspiration pour vos prochaine vacances ?
              OPEN to the world est là pour vous aider à passer les meilleures vacances de votre vie !"
@@ -137,26 +137,27 @@ server <- function(input, output) {
     
     #Les boucles marchent !!!!! (je suis trop contente j'ai enfin compris)
     
-    #if (input$saison == "été"){PP<- filter(payss, Saison == "été")} else if (input$saison == "printemps") {PP<- filter(payss, Saison == "printemps")} else if (input$saison == "hiver") {PP<- filter(payss, Saison == "hiver")} else if (input$saison == "automne") {PP<- filter(payss, Saison == "automne")}
+  if (input$saison == "été"){PP<- filter(payss, Saison == "été")} else if (input$saison == "printemps") {PP<- filter(payss, Saison == "printemps")} else if (input$saison == "hiver") {PP<- filter(payss, Saison == "hiver")} else if (input$saison == "automne") {PP<- filter(payss, Saison == "automne")}
     
-  # if (input$enfant >= 1) {PP <- filter(PP, Enfant == "Oui")} else {PP<- filter(PP, Enfant == "Non")}
-   # 
-   # if (input$duree > 15) {PP<- filter(PP, Duree == "Long")} else if(input$duree < 7) {PP<- filter(PP, Duree == "Court")} else if(input$duree>7 & input$duree<14){PP<-filter(PP, Duree == "Moyen")}
-   # 
-   # if (input$budget > 700) {PP<- filter(PP, Budget == "Fort")} else if(input$budget < 350) {PP<- filter(PP, Budget == "Faible")} else if (input$budget>350 & input$budget<700) {PP<-filter(PP, Budget == "Moyen")}
-   # 
-   # if (input$typays == "pays chaud"){PP<- filter(PP, Climat == "Chaud")} else if(input$typays == "pays froid") {PP<- filter(PP, Climat == "Froid")} else if (input$typays == "pays tempéré") {PP<- filter(PP, Climat == "Tempéré")}
-   # 
-   # if (input$typvac == "festif") {PP<- filter(PP, Festives == "Oui")} else if (input$typvac == "sportif"){PP<- filter(PP, Sportives == "Oui")} else if (input$typvac == "culturel") {PP<- filter(PP, Culturelles == "Oui")} else if (input$typvac == "détendu") {PP<- filter(PP, Détentes == "Oui")}
+  if (input$enfant >= 1) {PP <- filter(PP, Enfant == "Oui")} else {PP<- filter(PP, Enfant == "Non")}
+   
+   if (input$duree > 15) {PP<- filter(PP, Duree == "Long")} else if(input$duree < 7) {PP<- filter(PP, Duree == "Court")} else if(input$duree>7 & input$duree<14){PP<-filter(PP, Duree == "Moyen")}
+   
+   if (input$budget > 700) {PP<- filter(PP, Budget == "Fort")} else if(input$budget < 350) {PP<- filter(PP, Budget == "Faible")} else if (input$budget>350 & input$budget<700) {PP<-filter(PP, Budget == "Moyen")}
+   
+   if (input$typays == "pays chaud"){PP<- filter(PP, Climat == "Chaud")} else if(input$typays == "pays froid") {PP<- filter(PP, Climat == "Froid")} else if (input$typays == "pays tempéré") {PP<- filter(PP, Climat == "Tempéré")}
+   
+   if (input$typvac == "festif") {PP<- filter(PP, Festives == "Oui")} else if (input$typvac == "sportif"){PP<- filter(PP, Sportives == "Oui")} else if (input$typvac == "culturel") {PP<- filter(PP, Culturelles == "Oui")} else if (input$typvac == "détendu") {PP<- filter(PP, Détentes == "Oui")}
     
-    enfant <- ifelse(input$enfant>=1, "Oui", "Non")
+    #enfant <- ifelse(input$enfant>=1, "Oui", "Non")
     
-    payss %>% 
-      filter(Saison == input$saison) %>% 
-      filter(Enfant == enfant) -> PP
+    #payss %>% 
+     # filter(Saison == input$saison) %>% 
+      #filter(Enfant == enfant) -> PP
     
-    PP$Pays
+    if (length(PP$Pays)==0) {destid<-"Nous sommes désolé, nous n'avons trouvé aucune destination qui corresponde à votre demande"} else {destid<-sample(x=PP$Pays, size=1)}
     
+    destid
   })
 }
 
