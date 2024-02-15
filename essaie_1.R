@@ -101,8 +101,9 @@ ui <- fluidPage(
                 tabPanel("", tags$p(class = "intro", "Vous êtes en manque d'inspiration pour vos prochaine vacances ? 
              OPEN to the world est là pour vous aider à passer les meilleures vacances de votre vie !"),
                          textOutput("message"))),
+              tabsetPanel(
               tabPanel(class="intro", title = "", textOutput("message2")),
-              tabPanel("resultat",textOutput("message3")))
+              tabPanel("resultat",textOutput("message3"))))
   )
 )
 
