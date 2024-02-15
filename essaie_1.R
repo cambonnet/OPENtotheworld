@@ -1,10 +1,10 @@
 library(shiny)
 library(dplyr)
-library(readxl)
 
 #ça marche bien avec ce document là que je vais mettre sur git, je l'ai légerement modifié genre des accents et des majuscules mais sinon ça marche pas
 
-payss <- read_excel("pays__.xlsx")
+
+payss <- read.csv("pays__.csv", sep = ";", encoding = "UTF-8")
 head(payss)
 
 ui <- fluidPage(
