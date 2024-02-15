@@ -104,7 +104,8 @@ ui <- fluidPage(
               )),
               tabsetPanel(
                 tabPanel(class = "intro", title = "Récapitulatif", textOutput("message2")),
-                tabPanel(class = "intro", title = "Votre future destination...", textOutput("message3"))
+                tabPanel(class = "intro", title = "Votre future destination...", textOutput("message3"))#,
+                #tabPanel(class = "intro", title = "Activités proposées", textOutput("message4"))
               ))
   )
 )
@@ -158,6 +159,14 @@ server <- function(input, output) {
     if (length(PP$Pays)==0) {destid<-"Nous sommes désolé, nous n'avons trouvé aucune destination qui corresponde à votre demande"} else {destid<-sample(x=PP$Pays, size=1)}
     
     destid
+  })
+ # output$message4 <- renderText({
+   # req(validate_click())
+   # paste("Lors de votre voyage nous vous proposons de faire")
+    
+   # if (payss$Pays == destid & input$saison == payss$Saison) {(activ<-payss$Activité)}
+    
+    activ
   })
 }
 
