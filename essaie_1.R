@@ -17,11 +17,8 @@ ui <- fluidPage(
       HTML("
       body {
         font-family: 'Arial', sans-serif;
-<<<<<<< HEAD
         background-color: #22ADCC;
-=======
         background-color: #2986cc;
->>>>>>> af06e45fece4d0a2e1d7000503bb4a689d2f2392
         color: #ffffff;
       }
       .title {
@@ -102,8 +99,8 @@ ui <- fluidPage(
              OPEN to the world est là pour vous aider à passer les meilleures vacances de votre vie !"),
                          textOutput("message"))),
               tabsetPanel(
-              tabPanel(class="intro", title = "", textOutput("message2")),
-              tabPanel("resultat",textOutput("message3"))))
+              tabPanel(class="intro", title = "Récapitulatif", textOutput("message2")),
+              tabPanel("Votre future destination ...",textOutput("message3"))))
   )
 )
 
@@ -125,9 +122,10 @@ server <- function(input, output) {
     req(validate_click())
     paste("Récapitulons ! Vous êtes", input$nom, "et vous avez", input$age, "ans.
           Vos vacances se dérouleront en ", input$saison, "pour une durée de ", input$duree,
-          "jour(s). Vous partirez dans un ", input$typays, "et emmènerez avec vous ", input$adulte , "adulte(s) et ", input$enfant,
-          "enfant(s) profiteront d'agréables moments dans un cadre", 
-          input$typvac, " avec un budget de ", input$budget, "€/personne." )
+          "jour(s). Vous partirez dans un ", input$typays, "et emmènerez avec vous ", input$adulte ,
+          "adulte(s) et ", input$enfant,
+          "enfant(s) en profitant d'agréables moments dans un cadre", 
+          input$typvac, " avec un budget de ", input$budget, "€/personne/jour." )
   })
   output$message3 <- renderText({
     req(validate_click())
@@ -151,7 +149,7 @@ server <- function(input, output) {
     
     #la ça marche plus j'arrive pas à faire un tirage au sort parmis les données de PPP et je sais comment l'afficher sur Shiny
     
-    if (is.null(PPP)== TRUE) {paste("Nous n'avons trouvé aucune destination qui corresponde à votre demande")} else{destid<-PPP)} 
+    #if (is.null(PPP)== TRUE) {paste("Nous n'avons trouvé aucune destination qui corresponde à votre demande")} else{destid<-PPP)} 
     
     #aussi il faudrait essayer de mettre le message3 sur l'autre onglet
     
