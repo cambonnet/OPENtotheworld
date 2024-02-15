@@ -68,7 +68,7 @@ ui <- fluidPage(
     sidebarPanel(
       class = "sidebar",
       textInput(inputId = "nom", label = "Votre prénom et nom", placeholder = "Prénom Nom"),
-      numericInput("age", "Votre age:", value = 0, max = 99),
+      numericInput("age", "Votre age:", value = 35, max = 99),
       titlePanel("Avec qui souhaitez vous partir ?"),
       numericInput("adulte", "Nombre d'adulte(s) (+ 16 ans):", value = 0),
       numericInput("enfant", "Nombre d'enfant(s) (0-16 ans):", value = 0),
@@ -93,14 +93,19 @@ ui <- fluidPage(
       
       actionButton("validate", "Lancez les recherches ...")
     ),
-    mainPanel(class="main", 
+    mainPanel(class = "main",
               tabsetPanel(
-                tabPanel("", tags$p(class = "intro", "Vous êtes en manque d'inspiration pour vos prochaine vacances ? 
-             OPEN to the world est là pour vous aider à passer les meilleures vacances de votre vie !"),
-                         textOutput("message"))),
+                tabPanel("",
+                         tags$p(class = "intro",
+                  "Vous êtes en manque d'inspiration pour vos prochaine vacances ?
+             OPEN to the world est là pour vous aider à passer les meilleures vacances de votre vie !"
+                ),
+                textOutput("message")
+              )),
               tabsetPanel(
-              tabPanel(class="intro", title = "Récapitulatif", textOutput("message2")),
-              tabPanel("Votre future destination ...",textOutput("message3"))))
+                tabPanel(class = "intro", title = "Récapitulatif", textOutput("message2")),
+                tabPanel(class = "intro", title = "Votre future destination...", textOutput("message3"))
+              ))
   )
 )
 
@@ -132,26 +137,25 @@ server <- function(input, output) {
     
     #Les boucles marchent !!!!! (je suis trop contente j'ai enfin compris)
     
-    if (input$saison == "été"){PP<- filter(payss, Saison == "été")} else if (input$saison == "printemps") {PP<- filter(payss, Saison == "printemps")} else if (input$saison == "hiver") {PP<- filter(payss, Saison == "hiver")} else if (input$saison == "automne") {PP<- filter(payss, Saison == "automne")}
+    #if (input$saison == "été"){PP<- filter(payss, Saison == "été")} else if (input$saison == "printemps") {PP<- filter(payss, Saison == "printemps")} else if (input$saison == "hiver") {PP<- filter(payss, Saison == "hiver")} else if (input$saison == "automne") {PP<- filter(payss, Saison == "automne")}
     
-    if (input$enfant >= 1) {PP <- filter(PP, Enfant == "Oui")} else {PP<- filter(PP, Enfant == "Non")}
+  # if (input$enfant >= 1) {PP <- filter(PP, Enfant == "Oui")} else {PP<- filter(PP, Enfant == "Non")}
+   # 
+   # if (input$duree > 15) {PP<- filter(PP, Duree == "Long")} else if(input$duree < 7) {PP<- filter(PP, Duree == "Court")} else if(input$duree>7 & input$duree<14){PP<-filter(PP, Duree == "Moyen")}
+   # 
+   # if (input$budget > 700) {PP<- filter(PP, Budget == "Fort")} else if(input$budget < 350) {PP<- filter(PP, Budget == "Faible")} else if (input$budget>350 & input$budget<700) {PP<-filter(PP, Budget == "Moyen")}
+   # 
+   # if (input$typays == "pays chaud"){PP<- filter(PP, Climat == "Chaud")} else if(input$typays == "pays froid") {PP<- filter(PP, Climat == "Froid")} else if (input$typays == "pays tempéré") {PP<- filter(PP, Climat == "Tempéré")}
+   # 
+   # if (input$typvac == "festif") {PP<- filter(PP, Festives == "Oui")} else if (input$typvac == "sportif"){PP<- filter(PP, Sportives == "Oui")} else if (input$typvac == "culturel") {PP<- filter(PP, Culturelles == "Oui")} else if (input$typvac == "détendu") {PP<- filter(PP, Détentes == "Oui")}
     
-    if (input$duree > 15) {PP<- filter(PP, Duree == "Long")} else if(input$duree < 7) {PP<- filter(PP, Duree == "Court")} else if(input$duree>7 & duree<14){PP<-filter(PP, Duree == "Moyen")}
+    enfant <- ifelse(input$enfant>=1, "Oui", "Non")
     
-    if (input$budget > 700) {PP<- filter(PP, Budget == "Fort")} else if(input$budget < 350) {PP<- filter(PP, Budget == "Faible")} else if (input$budget>350 & input$budget<700) {PP<-filter(PP, Budget == "Moyen")}
+    payss %>% 
+      filter(Saison == input$saison) %>% 
+      filter(Enfant == enfant) -> PP
     
-    if (input$typays == "pays chaud"){PP<- filter(PP, Climat == "Chaud")} else if(input$typays == "pays froid") {PP<- filter(PP, Climat == "Froid")} else if (input$typays == "pays tempéré") {PP<- filter(PP, Climat == "Tempéré")}
-    
-    if (input$typvac == "festif") {PP<- filter(PP, Festives == "Oui")} else if (input$typvac == "sportif"){PP<- filter(PP, Sportives == "Oui")} else if (input$typvac == "culturel") {PP<- filter(PP, Culturelles == "Oui")} else if (input$typvac == "détendu") {PP<- filter(PP, Détentes == "Oui")}
-    
-    
-    PPP<- select(PP, Pays)
-    
-    #la ça marche plus j'arrive pas à faire un tirage au sort parmis les données de PPP et je sais comment l'afficher sur Shiny
-    
-    #if (is.null(PPP)== TRUE) {paste("Nous n'avons trouvé aucune destination qui corresponde à votre demande")} else{destid<-PPP)} 
-    
-    #aussi il faudrait essayer de mettre le message3 sur l'autre onglet
+    PP$Pays
     
   })
 }
