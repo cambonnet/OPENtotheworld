@@ -1,8 +1,6 @@
 library(shiny)
 library(dplyr)
 
-#ça marche bien avec ce document là que je vais mettre sur git, je l'ai légerement modifié genre des accents et des majuscules mais sinon ça marche pas
-
 
 payss <- read.csv("pays__.csv", sep = ";", encoding = "UTF-8")
 head(payss)
@@ -68,10 +66,10 @@ ui <- fluidPage(
     sidebarPanel(
       class = "sidebar",
       textInput(inputId = "nom", label = "Votre prénom et nom", placeholder = "Prénom Nom"),
-      numericInput("age", "Votre age:", value = 35, max = 99),
+      numericInput("age", "Votre age:", value = 0, max = 99, min = 0),
       titlePanel("Avec qui souhaitez vous partir ?"),
-      numericInput("adulte", "Nombre d'adulte(s) (+ 16 ans):", value = 0),
-      numericInput("enfant", "Nombre d'enfant(s) (0-16 ans):", value = 0),
+      numericInput("adulte", "Nombre d'adulte(s) (+ 16 ans):", value = 0, min = 0),
+      numericInput("enfant", "Nombre d'enfant(s) (0-16 ans):", value = 0, min = 0),
       
       
       selectInput("saison", "A quelle saison souhaitez vous partir ?:",
@@ -88,7 +86,8 @@ ui <- fluidPage(
                   value = 500),
       radioButtons(inputId = "typays", label = "Type de votre destination de rêves :", inline = TRUE,
                    choices = c("pays chaud", "pays froid", "pays tempéré")),
-      radioButtons(inputId = "typvac", label = "En vacances, quel est le type d'activité que vous souhaitez réalisé ?", inline = TRUE,
+      radioButtons(inputId = "typvac", label = "En vacances, 
+                   quel est le type d'activité que vous souhaitez réalisé ?", inline = TRUE,
                    choices = c("festif", "sportif", "culturel", "détendu")),
       
       actionButton("validate", "Lancez les recherches ...")
@@ -104,8 +103,10 @@ ui <- fluidPage(
               )),
               tabsetPanel(
                 tabPanel(class = "intro", title = "Récapitulatif", textOutput("message2")),
-                tabPanel(class = "intro", title = "Votre future destination...", textOutput("message3"))#,
-                #tabPanel(class = "intro", title = "Activités proposées", textOutput("message4"))
+                tabPanel(class = "intro", title = "Votre future destination...", textOutput("message3")),
+                tabPanel(class = "intro", title = "Activités proposées", 
+                         textOutput("message4"),"Grâce à  nos partenaires exclusifs, 
+                         nous vous proposons diverses activités qui vous séduiront à coup sûr !")
               ))
   )
 )
@@ -119,7 +120,8 @@ server <- function(input, output) {
   output$message <- renderText({
     req(validate_click())
     if (validate_click()$age < 16 )  {
-      return("Vous êtes trop jeune pour utiliser notre application seul, il est conseillé de faire appel à un adulte pour continuer.")
+      return("Vous êtes trop jeune pour utiliser notre application seul, 
+             il est conseillé de faire appel à un adulte pour continuer.")
     } else {
       return("Vous avez l'âge parfait pour partir à la découverte de nouveaux horizons !")
     }    })
@@ -140,11 +142,11 @@ server <- function(input, output) {
     
   if (input$saison == "été"){PP<- filter(payss, Saison == "été")} else if (input$saison == "printemps") {PP<- filter(payss, Saison == "printemps")} else if (input$saison == "hiver") {PP<- filter(payss, Saison == "hiver")} else if (input$saison == "automne") {PP<- filter(payss, Saison == "automne")}
     
-  if (input$enfant >= 1) {PP <- filter(PP, Enfant == "Oui")} else {PP<- filter(PP, Enfant == "Non")}
+  if (input$enfant >= 1) {PP <- filter(PP, Enfant == "Oui")} else {PP<- PP}
    
-   if (input$duree > 15) {PP<- filter(PP, Duree == "Long")} else if(input$duree < 7) {PP<- filter(PP, Duree == "Court")} else if(input$duree>7 & input$duree<14){PP<-filter(PP, Duree == "Moyen")}
+   if (input$duree > 15) {PP<- PP} else if(input$duree < 7) {PP<- filter(PP, Duree == "Court")} else if(input$duree>7 & input$duree<14){PP<-filter(PP, Duree == "Moyen")}
    
-   if (input$budget > 700) {PP<- filter(PP, Budget == "Fort")} else if(input$budget < 350) {PP<- filter(PP, Budget == "Faible")} else if (input$budget>350 & input$budget<700) {PP<-filter(PP, Budget == "Moyen")}
+   if (input$budget > 700) {PP<- PP} else if(input$budget < 350) {PP<- filter(PP, Budget == "Faible")} else if (input$budget>350 & input$budget<700) {PP<-filter(PP, Budget == "Moyen")}
    
    if (input$typays == "pays chaud"){PP<- filter(PP, Climat == "Chaud")} else if(input$typays == "pays froid") {PP<- filter(PP, Climat == "Froid")} else if (input$typays == "pays tempéré") {PP<- filter(PP, Climat == "Tempéré")}
    
@@ -160,15 +162,21 @@ server <- function(input, output) {
     
     destid
   })
- # output$message4 <- renderText({
+ 
+  #output$message4 <- renderText({
    # req(validate_click())
-   # paste("Lors de votre voyage nous vous proposons de faire")
+   # paste("Lors de votre voyage à nous vous proposons de faire")
     
-   # if (payss$Pays == destid & input$saison == payss$Saison) {(activ<-payss$Activité)}
-    
-    activ
-  })
+  # if (payss$Pays == destid & input$saison == payss$Saison) {(activ<-payss$Activité)}
+  
+  #activ
+  
+
+  #}
+#)
 }
+
+
 
 # Exécution de l'application
 shinyApp(ui = ui, server = server)
