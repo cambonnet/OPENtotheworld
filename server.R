@@ -51,7 +51,7 @@ function(input, output) {
     #payss %>% 
     # filter(Saison == input$saison) %>% 
     #filter(Enfant == enfant) -> PP##
-    
+    set.seed(1)
     if (length(PP$Pays)==0) {destid<-"Nous sommes désolé, nous n'avons trouvé aucune destination qui corresponde à votre demande"} else {destid<-sample(x=PP$Pays, size=1)}
     
     destid
@@ -60,6 +60,20 @@ function(input, output) {
   
   output$message4 <- renderText({
     req(validate_click())
+    if (input$saison == "été"){PP<- filter(payss, Saison == "été")} else if (input$saison == "printemps") {PP<- filter(payss, Saison == "printemps")} else if (input$saison == "hiver") {PP<- filter(payss, Saison == "hiver")} else if (input$saison == "automne") {PP<- filter(payss, Saison == "automne")}
+    
+    if (input$enfant >= 1) {PP <- filter(PP, Enfant == "Oui")} else {PP<- PP}
+    
+    if (input$duree > 15) {PP<- PP} else if(input$duree < 7) {PP<- filter(PP, Duree == "Court")} else if(input$duree>7 & input$duree<14){PP<-filter(PP, Duree == "Moyen")}
+    
+    if (input$budget > 700) {PP<- PP} else if(input$budget < 350) {PP<- filter(PP, Budget == "Faible")} else if (input$budget>350 & input$budget<700) {PP<-filter(PP, Budget == "Moyen")}
+    
+    if (input$typays == "pays chaud"){PP<- filter(PP, Climat == "Chaud")} else if(input$typays == "pays froid") {PP<- filter(PP, Climat == "Froid")} else if (input$typays == "pays tempéré") {PP<- filter(PP, Climat == "Tempéré")}
+    
+    if (input$typvac == "festif") {PP<- filter(PP, Festives == "Oui")} else if (input$typvac == "sportif"){PP<- filter(PP, Sportives == "Oui")} else if (input$typvac == "culturel") {PP<- filter(PP, Culturelles == "Oui")} else if (input$typvac == "détendu") {PP<- filter(PP, Détentes == "Oui")}
+
+    set.seed(1)
+    if (length(PP$Pays)==0) {destid<-"Nous sommes désolé, nous n'avons trouvé aucune destination qui corresponde à votre demande"} else {destid<-sample(x=PP$Pays, size=1)}
     
     AA<-filter(payss, Pays == destid)
     AA<-filter(AA, Saison == input$saison)
