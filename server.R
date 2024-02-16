@@ -2,11 +2,11 @@ library(shiny)
 library(dplyr)
 
 
-payss <- read.csv("pays__.csv", sep = ";", encoding = "UTF-8")
+payss <- read.csv("pays__act.csv", sep = ";", encoding = "UTF-8")
 head(payss)
 
 
-server <- function(input, output) {
+function(input, output) {
   
   validate_click <- eventReactive(input$validate, {
     list(age = input$age, nom = input$nom)
@@ -70,8 +70,3 @@ server <- function(input, output) {
     
   })
 }
-
-
-
-# Exécution de l'application
-shinyApp(ui = ui, server = server)
