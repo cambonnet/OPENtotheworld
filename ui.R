@@ -2,10 +2,10 @@ library(shiny)
 library(dplyr)
 
 
-payss <- read.csv("pays__.csv", sep = ";", encoding = "UTF-8")
+payss <- read.csv("pays__act.csv", sep = ";", encoding = "UTF-8")
 head(payss)
 
-ui <- fluidPage(
+fluidPage(
   navbarPage("Venez explorer le monde",
              tabPanel("Trouvez votre destination")
   ),
@@ -105,8 +105,7 @@ ui <- fluidPage(
                 tabPanel(class = "intro", title = "Récapitulatif", textOutput("message2")),
                 tabPanel(class = "intro", title = "Votre future destination...", textOutput("message3")),
                 tabPanel(class = "intro", title = "Activités proposées", 
-                         textOutput("message4"),"Grâce à  nos partenaires exclusifs, 
-                         nous vous proposons diverses activités qui vous séduiront à coup sûr !")
+                         textOutput("message4"))
               ))
   )
 )
