@@ -55,18 +55,23 @@ server <- function(input, output) {
     if (length(PP$Pays)==0) {destid<-"Nous sommes désolé, nous n'avons trouvé aucune destination qui corresponde à votre demande"} else {destid<-sample(x=PP$Pays, size=1)}
     
     destid
+    
   })
   
-  #output$message4 <- renderText({
-  # req(validate_click())
-  # paste("Lors de votre voyage à nous vous proposons de faire")
-  
-  # if (payss$Pays == destid & input$saison == payss$Saison) {(activ<-payss$Activité)}
-  
-  #activ
-  
-  
-  #}
-  #)
+  output$message4 <- renderText({
+    req(validate_click())
+    
+    AA<-filter(payss, Pays == destid)
+    AA<-filter(AA, Saison == input$saison)
+    activ<-AA$Activité
+    
+    activ
+    
+    
+  })
 }
 
+
+
+# Exécution de l'application
+shinyApp(ui = ui, server = server)
